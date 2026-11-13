@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Likhitha Swamy — Cloud and network operations | cloud Security | </title>
+<title>Likhitha Swamy — Network Engineer | Network Security | Cloud</title>
 <meta name="description" content="Likhitha Swamy — AWS-certified network engineer in Bengaluru with experience in network operations, network security and AWS.">
 <style>
   :root {
@@ -117,6 +117,21 @@
   .soon .big { font-family: var(--mono); color: var(--a3); font-size: 18px; margin-bottom: 8px; }
   .contact a.row { display: block; color: var(--text); }
   .contact .label { font-family: var(--mono); font-size: 12px; color: var(--a3); letter-spacing: 0.1em; }
+  form.msg { display: grid; gap: 14px; margin-bottom: 18px; }
+  form.msg[hidden] { display: none; }
+  form.msg .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  form.msg label { font-family: var(--mono); font-size: 12px; color: var(--a3); letter-spacing: 0.1em; display: block; margin-bottom: 6px; }
+  form.msg input, form.msg textarea {
+    width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line);
+    background: rgba(7, 11, 20, 0.6); color: var(--text); font: inherit;
+  }
+  form.msg input:focus, form.msg textarea:focus { outline: none; border-color: var(--a1); }
+  form.msg textarea { min-height: 130px; resize: vertical; }
+  form.msg button { cursor: pointer; font: inherit; font-weight: 600; justify-self: start; }
+  form.msg button[disabled] { opacity: 0.6; cursor: wait; }
+  .hp { position: absolute; left: -9999px; }
+  #form-status { font-family: var(--mono); font-size: 14px; min-height: 1.4em; }
+  #form-status.ok { color: var(--a3); } #form-status.err { color: #ff8a8a; }
   footer { border-top: 1px solid var(--line); padding: 26px 0; text-align: center; color: var(--muted); font-size: 13px; font-family: var(--mono); }
 
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s, transform .6s; }
@@ -255,6 +270,17 @@
     <div class="wrap reveal">
       <div class="tag">// CONTACT</div>
       <h2>Get In Touch</h2>
+      <form class="card msg" id="contact-form" hidden>
+        <p>Send me a message and I'll get back to you by email.</p>
+        <div class="two">
+          <div><label for="f-name">NAME</label><input id="f-name" name="name" type="text" required autocomplete="name"></div>
+          <div><label for="f-email">YOUR EMAIL</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <div><label for="f-message">MESSAGE</label><textarea id="f-message" name="message" required></textarea></div>
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn primary" type="submit">Send Message</button>
+        <div id="form-status" role="status"></div>
+      </form>
       <div class="grid2 contact" id="contact-grid"></div>
     </div>
   </section>
@@ -266,9 +292,14 @@
 /* =====================================================================
    EDIT HERE — everything you are likely to change lives in this block.
    ===================================================================== */
+// Paste your Formspree form URL here, e.g. "https://formspree.io/f/abcdwxyz".
+// Messages sent through the contact form are emailed to you; your address is never shown on the page.
+// While this is empty, the form stays hidden.
+const FORM_ENDPOINT = "";
+
 const CONTACT = {
-  email:    "likhithaswamyls@gmail.com",
-  phone:    "",                                   // optional: add a number to show it publicly
+  email:    "",                                   // leave empty to keep your email off the page
+  phone:    "",                                   // leave empty to keep your number off the page
   linkedin: "",                                   // paste your full LinkedIn profile URL
   github:   "https://github.com/likhitha0208",
   location: "Bengaluru, India"
@@ -329,6 +360,26 @@ document.getElementById("contact-grid").innerHTML = rows.map(([label, text, href
     ? `<a class="row" href="${esc(href)}" ${href.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}>${esc(text)}</a>`
     : `<div>${esc(text)}</div>`}</div>`
 ).join("");
+
+// Contact form
+(function () {
+  const form = document.getElementById("contact-form"), status = document.getElementById("form-status");
+  if (!FORM_ENDPOINT) return;
+  form.hidden = false;
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const btn = form.querySelector("button");
+    btn.disabled = true; status.className = ""; status.textContent = "Sending...";
+    try {
+      const res = await fetch(FORM_ENDPOINT, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+      if (!res.ok) throw new Error(res.status);
+      form.reset(); status.className = "ok"; status.textContent = "Message sent. Thank you!";
+    } catch (err) {
+      status.className = "err"; status.textContent = "Could not send. Please try again, or reach me on LinkedIn.";
+    }
+    btn.disabled = false;
+  });
+})();
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
