@@ -298,9 +298,9 @@
 const FORM_ENDPOINT = "";
 
 const CONTACT = {
-  email:    "",                                   // leave empty to keep your email off the page
+  email:    "likhithaswamyls@gmail.com",                                   // leave empty to keep your email off the page
   phone:    "",                                   // leave empty to keep your number off the page
-  linkedin: "",                                   // paste your full LinkedIn profile URL
+  linkedin: "https://www.linkedin.com/in/likhitha-swamy-10a263264",                                   // paste your full LinkedIn profile URL
   github:   "https://github.com/likhitha0208",
   location: "Bengaluru, India"
 };
@@ -349,9 +349,9 @@ document.getElementById("projects-list").innerHTML = PROJECTS.length
 
 // Contact
 const rows = [
-  CONTACT.email    && ["EMAIL", CONTACT.email, "likhithaswamyls@gmail.com" + CONTACT.email],
+    CONTACT.email    && ["EMAIL", CONTACT.email, "mailto:" + CONTACT.email],
   CONTACT.phone    && ["PHONE", CONTACT.phone, "tel:" + CONTACT.phone.replace(/\s/g, "")],
-  CONTACT.linkedin && ["LINKEDIN", "linkedin.com/in/likhitha-swamy-10a263264", CONTACT.linkedin],
+  CONTACT.linkedin && ["LINKEDIN", "View profile", CONTACT.linkedin],
   CONTACT.github   && ["GITHUB", CONTACT.github.replace("https://", ""), CONTACT.github],
   CONTACT.location && ["LOCATION", CONTACT.location, null]
 ].filter(Boolean);
