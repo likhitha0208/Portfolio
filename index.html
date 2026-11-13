@@ -1,345 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Likhitha Swamy — Network Engineer specializing in L2/L3 troubleshooting, network automation, and AI-driven tooling. Portfolio showcasing experience, projects, and skills.">
-  <title>Likhitha Swamy — Network Engineer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Likhitha Swamy — Network Engineer | Network Security | Cloud</title>
+<meta name="description" content="Likhitha Swamy — AWS-certified network engineer in Bengaluru with experience in network operations, network security and AWS.">
+<style>
+  :root {
+    --bg: #070b14;
+    --panel: rgba(16, 24, 40, 0.72);
+    --line: rgba(120, 160, 220, 0.16);
+    --text: #dbe6f5;
+    --muted: #8a9bb5;
+    --a1: #4fd1ff;
+    --a2: #8b7bff;
+    --a3: #3ef0b4;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, "Liberation Mono", monospace;
+    --sans: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text); font-family: var(--sans);
+    line-height: 1.65; font-size: 16px; overflow-x: hidden;
+  }
+  a { color: var(--a1); text-decoration: none; }
+  a:hover { color: #fff; }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  /* ---------- Background layers ---------- */
+  .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .bg .glow {
+    position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.42;
+    animation: drift 26s ease-in-out infinite alternate;
+  }
+  .glow.g1 { width: 46vw; height: 46vw; background: #1b5cff; top: -14vw; left: -10vw; }
+  .glow.g2 { width: 40vw; height: 40vw; background: #7a3cff; bottom: -16vw; right: -8vw; animation-duration: 32s; animation-delay: -8s; }
+  .glow.g3 { width: 28vw; height: 28vw; background: #00c9a7; top: 42%; left: 52%; opacity: 0.22; animation-duration: 38s; animation-delay: -15s; }
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(6vw, 4vw) scale(1.12); }
+    100% { transform: translate(-4vw, 8vw) scale(0.94); }
+  }
+  .bg .grid {
+    position: absolute; inset: -50% 0 0 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 50% 35%, #000 0%, transparent 72%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 0%, transparent 72%);
+    animation: gridmove 22s linear infinite;
+  }
+  @keyframes gridmove { to { transform: translateY(56px); } }
+  #net { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-  <link rel="stylesheet" href="css/style.css">
+  /* ---------- Layout ---------- */
+  .wrap { width: min(1040px, 92vw); margin: 0 auto; }
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(7, 11, 20, 0.72); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; flex-wrap: wrap; }
+  .brand { font-family: var(--mono); font-weight: 700; color: #fff; }
+  .brand span { color: var(--a3); }
+  nav ul { list-style: none; display: flex; gap: 22px; flex-wrap: wrap; }
+  nav ul a { color: var(--muted); font-size: 14px; font-family: var(--mono); }
+  nav ul a:hover { color: var(--a1); }
+
+  header.hero { min-height: 88vh; display: flex; align-items: center; padding: 70px 0; }
+  .prompt { font-family: var(--mono); color: var(--a3); font-size: 15px; margin-bottom: 18px; }
+  h1 {
+    font-size: clamp(42px, 8vw, 84px); line-height: 1.05; letter-spacing: -0.02em;
+    background: linear-gradient(100deg, var(--a1), var(--a2) 60%, var(--a3));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .typed { font-family: var(--mono); font-size: clamp(18px, 2.6vw, 24px); color: #fff; margin: 18px 0 14px; min-height: 1.6em; }
+  .typed .cursor { color: var(--a1); animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .lead { color: var(--muted); max-width: 620px; font-size: 18px; }
+  .cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+  .btn {
+    display: inline-block; padding: 13px 26px; border-radius: 10px; font-weight: 600;
+    border: 1px solid var(--line); color: var(--text); background: rgba(255,255,255,0.03);
+    transition: transform .15s, border-color .15s, box-shadow .15s;
+  }
+  .btn:hover { transform: translateY(-2px); border-color: var(--a1); color: #fff; }
+  .btn.primary { background: linear-gradient(100deg, var(--a1), var(--a2)); color: #06101f; border: none; }
+  .btn.primary:hover { box-shadow: 0 10px 34px rgba(79, 209, 255, 0.35); color: #06101f; }
+
+  section { padding: 76px 0; }
+  .tag { font-family: var(--mono); color: var(--a3); font-size: 13px; letter-spacing: 0.12em; }
+  h2 { font-size: clamp(28px, 4vw, 38px); margin: 6px 0 30px; color: #fff; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 26px;
+    backdrop-filter: blur(8px); transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: rgba(79, 209, 255, 0.5); transform: translateY(-3px); }
+  .card + .card { margin-top: 18px; }
+  .card h3 { color: #fff; font-size: 20px; }
+  .meta { font-family: var(--mono); font-size: 13px; color: var(--a1); margin: 4px 0 14px; }
+  .card ul { padding-left: 20px; color: var(--muted); }
+  .card li { margin-bottom: 7px; }
+  .card p { color: var(--muted); }
+  .card p + p { margin-top: 12px; }
+
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
+  .grid2 .card + .card { margin-top: 0; }
+  .card h4 { color: #fff; font-size: 15px; margin-bottom: 12px; font-family: var(--mono); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: var(--mono); font-size: 12.5px; padding: 5px 11px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--text); background: rgba(79, 209, 255, 0.06);
+  }
+  .soon { text-align: center; padding: 44px 26px; border-style: dashed; }
+  .soon .big { font-family: var(--mono); color: var(--a3); font-size: 18px; margin-bottom: 8px; }
+  .contact a.row { display: block; color: var(--text); }
+  .contact .label { font-family: var(--mono); font-size: 12px; color: var(--a3); letter-spacing: 0.1em; }
+  footer { border-top: 1px solid var(--line); padding: 26px 0; text-align: center; color: var(--muted); font-size: 13px; font-family: var(--mono); }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s, transform .6s; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glow, .grid, .typed .cursor { animation: none !important; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
 </head>
 <body>
 
-  <canvas id="bg-canvas"></canvas>
+<div class="bg" aria-hidden="true">
+  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+  <div class="grid"></div>
+  <canvas id="net"></canvas>
+</div>
 
-  <header id="navbar" class="navbar">
-    <div class="navbar-inner">
-      <a href="#hero" class="logo">&gt; likhitha<span class="cursor-blink">_</span></a>
-      <nav class="nav-links">
-        <a href="#about" class="nav-link" data-target="about">About</a>
-        <a href="#experience" class="nav-link" data-target="experience">Experience</a>
-        <a href="#skills" class="nav-link" data-target="skills">Skills</a>
-        <a href="#projects" class="nav-link" data-target="projects">Projects</a>
-        <a href="#education" class="nav-link" data-target="education">Education</a>
-        <a href="#certifications" class="nav-link" data-target="certifications">Certifications</a>
-        <a href="#contact" class="nav-link" data-target="contact">Contact</a>
-      </nav>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><span>&gt;</span> likhitha</a>
+    <ul>
+      <li><a href="#about">about</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#education">education</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="prompt">&gt; whoami</div>
+    <h1>Likhitha Swamy</h1>
+    <div class="typed"><span id="typed"></span><span class="cursor">|</span></div>
+    <p class="lead">AWS-certified network engineer with over a year of hands-on network operations experience, working across networking, security and cloud.</p>
+    <div class="cta">
+      <a class="btn primary" href="#projects">View Projects</a>
+      <a class="btn" href="#contact">Contact Me</a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-
-    <section id="hero" class="section hero">
-      <div class="hero-content reveal">
-        <p class="eyebrow">&gt; whoami</p>
-        <h1 class="hero-name">Likhitha Swamy</h1>
-        <p class="hero-role">
-          <span class="typed-text" data-roles='["Network Engineer","AI Enthusiast","Automation Builder"]'></span><span class="cursor">|</span>
-        </p>
-        <p class="hero-subtitle">Network Engineer building resilient infrastructure, automated with Python.</p>
-        <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
-          <a href="#contact" class="btn btn-outline">Contact Me</a>
-        </div>
+<main>
+  <section id="about">
+    <div class="wrap reveal">
+      <div class="tag">// ABOUT</div>
+      <h2>About Me</h2>
+      <div class="card">
+        <p>I'm a network engineer based in Bengaluru, India, with a Bachelor of Engineering in Electronics &amp; Communication (2025) and over a year of hands-on experience in network operations: network troubleshooting, LAN/WAN debugging, service monitoring and incident resolution in a multi-vendor production environment.</p>
+        <p>I'm strong in TCP/IP fundamentals, network configuration, firewall rules and security scanning with Nmap and Wireshark, and I build on AWS with EC2, VPC, S3, IAM and CloudWatch. I'm used to documenting issues, coordinating with IT, vendor and engineering teams, and meeting SLA targets.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="about" class="section">
-      <div class="section-header reveal">
-        <p class="eyebrow">// about</p>
-        <h2 class="section-title">About Me</h2>
-      </div>
-      <div class="about-content reveal">
-        <p>
-          I'm a Network Engineer based in Bengaluru, India, currently troubleshooting and resolving Layer 2/Layer 3
-          incidents across TCP/IP, BGP, DHCP, and DNS in large-scale, multi-vendor LAN/WAN environments at AT&amp;T.
-          I combine hands-on infrastructure operations — root cause analysis, escalation management, and SLA/SLO-driven
-          delivery — with Python and Linux scripting to automate network health checks, connectivity testing, and
-          configuration compliance.
-        </p>
-        <p>
-          My background also includes an AI internship at L&amp;T Technology Services, where I worked on OpenCV and
-          deep learning for parking slot detection. I enjoy the intersection of networking and automation, and I'm
-          always looking to build more resilient, self-monitoring infrastructure.
-        </p>
-      </div>
-    </section>
+  <section id="experience">
+    <div class="wrap reveal">
+      <div class="tag">// EXPERIENCE</div>
+      <h2>Professional Experience</h2>
 
-    <section id="experience" class="section">
-      <div class="section-header reveal">
-        <p class="eyebrow">// experience</p>
-        <h2 class="section-title">Professional Experience</h2>
-      </div>
-      <div class="timeline reveal">
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-role">Network Engineer</h3>
-            <p class="timeline-meta">AT&amp;T — Bangalore, India — Sep 2025 - Aug 2026</p>
-            <ul class="timeline-list">
-              <li>Troubleshoot and resolve Layer 2/Layer 3 incidents involving TCP/IP, BGP, DHCP, DNS, and multi-vendor environments</li>
-              <li>Maintain large-scale LAN/WAN availability and fulfill service requests while strictly meeting operational SLA/SLO targets</li>
-              <li>Manage and escalate infrastructure issues seamlessly using ServiceNow, performing root cause analysis (RCA) to prevent recurring incidents</li>
-              <li>Collaborate directly with external vendors and internal engineering teams for rapid issue mitigation and escalation tracking</li>
-              <li>Utilize Linux and Python scripting to automate routine network monitoring and troubleshooting tasks, improving operational delivery speeds</li>
-              <li>Developed standalone Python scripts to automate routine network health checks and parse device running logs</li>
-              <li>Automated IP reachability testing across lab nodes, decreasing manual testing hours and generating automated connectivity status reports</li>
-              <li>Integrated automated scripts with Git version control to manage network configuration changes and maintain compliance baselines</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3 class="timeline-role">AI Intern</h3>
-            <p class="timeline-meta">L&amp;T Technology Services — Bengaluru, India — October 2023 – December 2023</p>
-            <ul class="timeline-list">
-              <li>Assisted with artificial intelligence projects, data analysis and data collection</li>
-              <li>OpenCV and Deep Learning for Parking slot detection; worked on the model to increase accuracy and precision</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="skills" class="section">
-      <div class="section-header reveal">
-        <p class="eyebrow">// skills</p>
-        <h2 class="section-title">Technical Skills</h2>
-      </div>
-      <div class="skills-grid reveal">
-
-        <div class="skill-category">
-          <h3>Networking &amp; Protocols</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">TCP/IP</span>
-            <span class="skill-tag">BGP</span>
-            <span class="skill-tag">OSPF</span>
-            <span class="skill-tag">DHCP</span>
-            <span class="skill-tag">DNS</span>
-            <span class="skill-tag">IPv4/IPv6</span>
-            <span class="skill-tag">Routing &amp; Switching</span>
-            <span class="skill-tag">LAN/WAN</span>
-            <span class="skill-tag">VLANs</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>Network Technologies</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Cisco</span>
-            <span class="skill-tag">Juniper</span>
-            <span class="skill-tag">Palo Alto Networks</span>
-            <span class="skill-tag">ISP Infrastructure</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>Security</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Network Security Fundamentals</span>
-            <span class="skill-tag">ACLs</span>
-            <span class="skill-tag">Firewall Concepts</span>
-            <span class="skill-tag">NAT/PAT</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>Tools &amp; Platforms</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">ServiceNow</span>
-            <span class="skill-tag">Linux</span>
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">GitHub</span>
-            <span class="skill-tag">Cisco Packet Tracer</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>Operations</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Network Monitoring</span>
-            <span class="skill-tag">Incident Management</span>
-            <span class="skill-tag">Root Cause Analysis</span>
-            <span class="skill-tag">SLA/SLO Compliance</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>Languages &amp; Databases</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">SQL</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>AI &amp; Data Science</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Machine Learning</span>
-            <span class="skill-tag">Deep Learning</span>
-            <span class="skill-tag">OpenCV</span>
-            <span class="skill-tag">Data Visualization</span>
-            <span class="skill-tag">Edge AI</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3>Additional</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">Adaptability &amp; Learning</span>
-            <span class="skill-tag">Analytical &amp; Troubleshooting</span>
-            <span class="skill-tag">Communication</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="projects" class="section">
-      <div class="section-header reveal">
-        <p class="eyebrow">// projects</p>
-        <h2 class="section-title">Projects</h2>
-      </div>
-      <div class="projects-grid reveal">
-
-        <div class="project-card">
-          <h3>Enterprise Routing &amp; Switching Topology Design</h3>
-          <ul class="project-desc">
-            <li>Designed and simulated a scalable corporate network topology featuring multi-layered switches and redundant core routers</li>
-            <li>Configured internal routing protocols (OSPF) alongside edge configurations (BGP) to establish resilient, path-optimized traffic routes</li>
-          </ul>
-          <div class="tech-stack">
-            <span class="tech-tag">Cisco Packet Tracer</span>
-            <span class="tech-tag">Cisco IOS</span>
-            <span class="tech-tag">Routing &amp; Switching</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <h3>Network Configuration Compliance &amp; Backup Automation</h3>
-          <ul class="project-desc">
-            <li>Developed standalone Python scripts to automate routine network health checks and parse device running logs</li>
-            <li>Automated IP reachability testing across lab nodes, decreasing manual testing hours, generating automated connectivity status reports</li>
-            <li>Integrated automated scripts with Git version control to manage network configuration changes and maintain compliance baselines</li>
-          </ul>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Linux</span>
-            <span class="tech-tag">Git</span>
-            <span class="tech-tag">GitHub</span>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <h3>AI-Based Parking Slot Detection</h3>
-          <ul class="project-desc">
-            <li>Assisted with AI projects, data analysis and data collection at L&amp;T Technology Services</li>
-            <li>Worked on model to increase accuracy and precision using OpenCV and Deep Learning</li>
-          </ul>
-          <div class="tech-stack">
-            <span class="tech-tag">OpenCV</span>
-            <span class="tech-tag">Deep Learning</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="education" class="section">
-      <div class="section-header reveal">
-        <p class="eyebrow">// education</p>
-        <h2 class="section-title">Education</h2>
-      </div>
-      <div class="education-grid reveal">
-
-        <div class="education-item">
-          <h3>Bachelor of Engineering (Electronics &amp; Communication)</h3>
-          <p class="education-meta">Atria Institute of Technology, Bengaluru</p>
-          <p class="education-score">CGPA: 8/10</p>
-        </div>
-
-        <div class="education-item">
-          <h3>Pre-University Education</h3>
-          <p class="education-meta">BGS PU College, Sringeri</p>
-          <p class="education-score">Percentage: 83.2%</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="certifications" class="section">
-      <div class="section-header reveal">
-        <p class="eyebrow">// certifications</p>
-        <h2 class="section-title">Certifications &amp; Patents</h2>
-      </div>
-      <div class="cert-grid reveal">
-
-        <div class="cert-card">
-          <h3>CCNA</h3>
-          <p>Cisco Certified Network Associate</p>
-        </div>
-
-        <div class="cert-card">
-          <h3>Patent Published</h3>
-          <p>AI-Controlled Touchless Water Dispenser (App No: 202441077657 A)</p>
-        </div>
-
-      </div>
-
-      <div class="leadership reveal">
-        <h3>Leadership</h3>
-        <ul class="leadership-list">
-          <li>Secretary, IEEE Atria SBC (2024 - 2025)</li>
-          <li>MDC, IEEE Atria SPS (2024)</li>
+      <div class="card">
+        <h3>Network Engineer</h3>
+        <div class="meta">AT&amp;T · Bengaluru, India · Sep 2025 – Aug 2026</div>
+        <ul>
+          <li>Provided L1/L2 production support in a service-assurance environment, debugging TCP/IP, DHCP, DNS and L2/L3 connectivity issues across multi-vendor network infrastructure.</li>
+          <li>Monitored network health using utilization metrics and interface/error data to find causes of service-impacting issues, improving average incident resolution time by ~20%.</li>
+          <li>Maintained LAN/WAN availability and handled service requests while sustaining 99%+ SLA/SLO compliance; documented root causes and resolutions in ServiceNow.</li>
+          <li>Coordinated with vendors, internal IT and engineering teams on escalations, mitigation and service restoration, reducing escalation-to-resolution time by ~15%.</li>
         </ul>
       </div>
-    </section>
 
-    <section id="contact" class="section">
-      <div class="section-header reveal">
-        <p class="eyebrow">// contact</p>
-        <h2 class="section-title">Get In Touch</h2>
+      <!-- To add another role, copy this block, remove the comment markers and fill it in.
+      <div class="card">
+        <h3>Job Title</h3>
+        <div class="meta">Company · City, Country · Start – End</div>
+        <ul>
+          <li>What you did.</li>
+        </ul>
       </div>
-      <div class="contact-content reveal">
-        <p class="contact-intro">Feel free to reach out for opportunities, collaborations, or just to say hello.</p>
-        <div class="contact-links">
-          <a href="mailto:likhithaswamyls@gmail.com" class="contact-link">
-            <span class="contact-label">Email</span> likhithaswamyls@gmail.com
-          </a>
-          <a href="tel:7483565189" class="contact-link">
-            <span class="contact-label">Phone</span> 7483565189
-          </a>
-          <a href="#" class="contact-link">
-            <span class="contact-label">LinkedIn</span> LinkedIn
-          </a>
-          <span class="contact-link">
-            <span class="contact-label">Location</span> Bengaluru, India
-          </span>
+      -->
+
+      <div class="card">
+        <h3>AI Intern</h3>
+        <div class="meta">L&amp;T Technology Services · Bengaluru, India · Oct 2023 – Dec 2023</div>
+        <ul>
+          <li>Built Python scripts using OpenCV and Hugging Face to detect parking signs and slot lines for a parking slot detection system; handled data annotation and preprocessing.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap reveal">
+      <div class="tag">// SKILLS</div>
+      <h2>Technical Skills</h2>
+      <div class="grid2" id="skills-grid"></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap reveal">
+      <div class="tag">// PROJECTS</div>
+      <h2>Projects</h2>
+      <div id="projects-list"></div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap reveal">
+      <div class="tag">// EDUCATION &amp; CERTIFICATIONS</div>
+      <h2>Education &amp; Certifications</h2>
+      <div class="grid2">
+        <div class="card">
+          <h4>Education</h4>
+          <p><strong style="color:#fff">Bachelor of Engineering (B.E.), Electronics &amp; Communication</strong><br>Atria Institute of Technology, Bengaluru · 2021 – 2025</p>
         </div>
-        <a href="mailto:likhithaswamyls@gmail.com" class="btn btn-primary contact-cta">Say Hello</a>
+        <div class="card">
+          <h4>Certifications</h4>
+          <p><strong style="color:#fff">AWS Certified Solutions Architect</strong></p>
+          <p><strong style="color:#fff">CompTIA Security+</strong><br>In progress</p>
+        </div>
+        <div class="card">
+          <h4>Additional</h4>
+          <p><strong style="color:#fff">Patent Published</strong><br>AI-Controlled Touchless Water Dispenser (Application No. 202441077657 A)</p>
+          <p><strong style="color:#fff">Leadership</strong><br>Secretary, IEEE Atria SBC (2024 – 2025)</p>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <section id="contact">
+    <div class="wrap reveal">
+      <div class="tag">// CONTACT</div>
+      <h2>Get In Touch</h2>
+      <div class="grid2 contact" id="contact-grid"></div>
+    </div>
+  </section>
+</main>
 
-  <footer class="site-footer">
-    <p>&copy; 2026 Likhitha Swamy. Built with HTML, CSS &amp; JavaScript.</p>
-    <a href="#hero" class="back-to-top">Back to top &uarr;</a>
-  </footer>
+<footer>© <span id="year"></span> Likhitha Swamy · Bengaluru, India</footer>
 
-  <script src="js/script.js" defer></script>
+<script>
+/* =====================================================================
+   EDIT HERE — everything you are likely to change lives in this block.
+   ===================================================================== */
+const CONTACT = {
+  email:    "likhithaswamyls@gmail.com",
+  phone:    "",                                   // optional: add a number to show it publicly
+  linkedin: "",                                   // paste your full LinkedIn profile URL
+  github:   "https://github.com/likhitha0208",
+  location: "Bengaluru, India"
+};
+
+const ROLES = ["Network Engineer", "Network Security", "Network Troubleshooting", "AWS · Linux · Python"];
+
+const SKILLS = {
+  "Networking":         ["TCP/IP", "LAN", "WAN", "DNS", "DHCP", "HTTP/HTTPS", "TLS", "OSPF", "Routing & Switching", "Network Configuration", "Network Troubleshooting", "Network Debugging"],
+  "Network Security":   ["Nmap", "Wireshark", "Security Scanning", "Vulnerability Management", "AWS Security Groups", "Network ACLs", "IAM", "Access Controls", "Infrastructure Hardening"],
+  "Cloud (AWS)":        ["EC2", "VPC", "S3", "IAM", "CloudWatch"],
+  "Automation":         ["Python", "Bash", "Git", "GitHub Actions", "CI/CD"],
+  "Systems & Tools":    ["Linux (Ubuntu, RHEL)", "Cisco IOS", "Cisco Packet Tracer", "ServiceNow", "Splunk"],
+  "Process":            ["Incident Management", "Service Request Management", "Root Cause Analysis", "Technical Documentation", "SLA/SLO Compliance"]
+};
+
+/* To add a project, copy one entry and edit it. "link" is optional:
+   add link: "https://github.com/likhitha0208/repo-name" to show a GitHub link. */
+const PROJECTS = [
+  { title: "Cloud Security Compliance Scanner & CI/CD Pipeline",
+    description: "Built a Python tool that audits AWS VPC Security Groups and Network ACLs against defined compliance baselines, and automated it through a GitHub Actions pipeline with reports stored in S3.",
+    tech: ["AWS VPC", "IAM", "S3", "CloudWatch", "Python", "GitHub Actions", "Linux"] },
+  { title: "Linux EC2 Provisioning & Infrastructure Hardening",
+    description: "Deployed and secured an AWS EC2 Linux server with least-privilege IAM and Security Groups; automated uptime and network reachability checks with a scheduled Bash script that archives logs to S3.",
+    tech: ["AWS EC2", "S3", "IAM", "Security Groups", "Ubuntu", "Bash", "Git"] },
+  { title: "Enterprise Routing & Switching Topology Design",
+    description: "Designed and simulated a core-and-branch network with redundant WAN links for high availability; configured routing and verified reachability and failover using ping, traceroute and routing table checks.",
+    tech: ["Cisco Packet Tracer", "Cisco IOS", "OSPF"] }
+];
+/* ===================================================================== */
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// Skills
+document.getElementById("skills-grid").innerHTML = Object.entries(SKILLS).map(([group, items]) =>
+  `<div class="card"><h4>${esc(group)}</h4><div class="chips">${items.map(i => `<span class="chip">${esc(i)}</span>`).join("")}</div></div>`
+).join("");
+
+// Projects
+document.getElementById("projects-list").innerHTML = PROJECTS.length
+  ? PROJECTS.map(p => `<div class="card"><h3>${esc(p.title)}</h3>
+      <p style="margin:10px 0 14px">${esc(p.description)}</p>
+      <div class="chips">${(p.tech || []).map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>
+      ${p.link ? `<p style="margin-top:14px"><a href="${esc(p.link)}" target="_blank" rel="noopener">View on GitHub →</a></p>` : ""}</div>`).join("")
+  : `<div class="card soon"><div class="big">$ git push origin projects</div>
+      <p>Cloud and automation projects are in progress and will be published here soon.</p></div>`;
+
+// Contact
+const rows = [
+  CONTACT.email    && ["EMAIL", CONTACT.email, "mailto:" + CONTACT.email],
+  CONTACT.phone    && ["PHONE", CONTACT.phone, "tel:" + CONTACT.phone.replace(/\s/g, "")],
+  CONTACT.linkedin && ["LINKEDIN", "View profile", CONTACT.linkedin],
+  CONTACT.github   && ["GITHUB", CONTACT.github.replace("https://", ""), CONTACT.github],
+  CONTACT.location && ["LOCATION", CONTACT.location, null]
+].filter(Boolean);
+document.getElementById("contact-grid").innerHTML = rows.map(([label, text, href]) =>
+  `<div class="card"><div class="label">${label}</div>${href
+    ? `<a class="row" href="${esc(href)}" ${href.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}>${esc(text)}</a>`
+    : `<div>${esc(text)}</div>`}</div>`
+).join("");
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Typed roles
+(function () {
+  const el = document.getElementById("typed");
+  if (reduced) { el.textContent = ROLES[0]; return; }
+  let r = 0, i = 0, del = false;
+  (function tick() {
+    const word = ROLES[r];
+    el.textContent = word.slice(0, i);
+    let wait = del ? 45 : 90;
+    if (!del && i === word.length) { del = true; wait = 1600; }
+    else if (del && i === 0) { del = false; r = (r + 1) % ROLES.length; wait = 350; }
+    else i += del ? -1 : 1;
+    setTimeout(tick, wait);
+  })();
+})();
+
+// Reveal on scroll
+(function () {
+  const els = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) { els.forEach(e => e.classList.add("in")); return; }
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { threshold: 0.08 });
+  els.forEach(e => io.observe(e));
+})();
+
+// Background: live network topology with packets travelling along links
+(function () {
+  const c = document.getElementById("net"), x = c.getContext("2d");
+  let w, h, nodes = [], packets = [], mouse = { x: -9999, y: -9999 };
+  const LINK = 150;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    c.width = w * dpr; c.height = h * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = Math.max(24, Math.min(90, Math.round(w * h / 17000)));
+    nodes = Array.from({ length: count }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+      hub: Math.random() < 0.14
+    }));
+    packets = [];
+  }
+
+  function frame() {
+    x.clearRect(0, 0, w, h);
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > w) n.vx *= -1;
+      if (n.y < 0 || n.y > h) n.vy *= -1;
+    }
+    const links = [];
+    for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (d < LINK) {
+        links.push([a, b]);
+        x.strokeStyle = `rgba(110, 170, 255, ${(1 - d / LINK) * 0.28})`;
+        x.lineWidth = 1; x.beginPath(); x.moveTo(a.x, a.y); x.lineTo(b.x, b.y); x.stroke();
+      }
+    }
+    for (const n of nodes) {
+      const near = Math.hypot(n.x - mouse.x, n.y - mouse.y) < 140;
+      if (near) {
+        x.strokeStyle = "rgba(62, 240, 180, 0.35)"; x.lineWidth = 1;
+        x.beginPath(); x.moveTo(n.x, n.y); x.lineTo(mouse.x, mouse.y); x.stroke();
+      }
+      x.fillStyle = near ? "#3ef0b4" : n.hub ? "rgba(139, 123, 255, 0.95)" : "rgba(79, 209, 255, 0.8)";
+      x.beginPath(); x.arc(n.x, n.y, n.hub ? 3.2 : 1.8, 0, 6.2832); x.fill();
+      if (n.hub) {
+        x.strokeStyle = "rgba(139, 123, 255, 0.3)";
+        x.beginPath(); x.arc(n.x, n.y, 7, 0, 6.2832); x.stroke();
+      }
+    }
+    if (links.length && packets.length < 16 && Math.random() < 0.12) {
+      const [a, b] = links[Math.floor(Math.random() * links.length)];
+      packets.push({ a, b, t: 0, s: 0.012 + Math.random() * 0.014 });
+    }
+    packets = packets.filter(p => (p.t += p.s) < 1);
+    for (const p of packets) {
+      const px = p.a.x + (p.b.x - p.a.x) * p.t, py = p.a.y + (p.b.y - p.a.y) * p.t;
+      x.fillStyle = "#3ef0b4"; x.shadowColor = "#3ef0b4"; x.shadowBlur = 10;
+      x.beginPath(); x.arc(px, py, 2.2, 0, 6.2832); x.fill(); x.shadowBlur = 0;
+    }
+    if (!reduced) requestAnimationFrame(frame);
+  }
+
+  window.addEventListener("resize", resize);
+  window.addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener("mouseleave", () => { mouse.x = mouse.y = -9999; });
+  resize(); frame();
+})();
+</script>
 </body>
 </html>
