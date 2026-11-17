@@ -317,8 +317,14 @@ const SKILLS = {
 };
 
 /* To add a project, copy one entry and edit it. "link" is optional:
-   add link: "https://github.com/likhitha0208/repo-name" to show a GitHub link. */
+   add link: "https://github.com/likhitha0208/repo-name" to show a GitHub link,
+   and demo: "https://..." to show a "Live demo" link. */
 const PROJECTS = [
+  { title: "NimbusScan: AWS Cloud Security Scanner & Dashboard",
+    description: "Built a read-only AWS security scanner in Python and boto3 that runs seven checks (VPC and security groups, network ACLs, IAM, S3, CloudTrail, GuardDuty and AWS Config), ranks every finding by severity with a recommended fix, and shows the results in a locked-down local dashboard with CSV/JSON export. Services that are not enabled are reported as not evaluated instead of clean, and only Describe, List and Get API calls are used.",
+    tech: ["Python", "boto3", "AWS VPC", "IAM", "S3", "CloudTrail", "GuardDuty", "AWS Config", "JavaScript", "GitHub Pages"],
+    link: "https://github.com/likhitha0208/nimbusScan",
+    demo: "https://likhitha0208.github.io/nimbusScan/demo/" },
   { title: "Cloud Security Compliance Scanner & CI/CD Pipeline",
     description: "Built a Python tool that audits AWS VPC Security Groups and Network ACLs against defined compliance baselines, and automated it through a GitHub Actions pipeline with reports stored in S3.",
     tech: ["AWS VPC", "IAM", "S3", "CloudWatch", "Python", "GitHub Actions", "Linux"] },
@@ -343,7 +349,7 @@ document.getElementById("projects-list").innerHTML = PROJECTS.length
   ? PROJECTS.map(p => `<div class="card"><h3>${esc(p.title)}</h3>
       <p style="margin:10px 0 14px">${esc(p.description)}</p>
       <div class="chips">${(p.tech || []).map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>
-      ${p.link ? `<p style="margin-top:14px"><a href="${esc(p.link)}" target="_blank" rel="noopener">View on GitHub →</a></p>` : ""}</div>`).join("")
+      ${(p.demo || p.link) ? `<p style="margin-top:14px;display:flex;gap:22px;flex-wrap:wrap">${p.demo ? `<a href="${esc(p.demo)}" target="_blank" rel="noopener">Live demo →</a>` : ""}${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">View on GitHub →</a>` : ""}</p>` : ""}</div>`).join("")
   : `<div class="card soon"><div class="big">$ git push origin projects</div>
       <p>Cloud and automation projects are in progress and will be published here soon.</p></div>`;
 
